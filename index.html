@@ -24,7 +24,6 @@
     import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/postprocessing/RenderPass.js';
     import { ShaderPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/postprocessing/ShaderPass.js';
 
-    // 🧠 Твой код
     console.log("Shader загружен!");
     console.log("Script работает!");
 
@@ -36,7 +35,7 @@
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
     const loader = new THREE.TextureLoader();
-    loader.load('image.png', (texture) => {
+    loader.load('image.jpg', (texture) => {
       console.log("Картинка загружена!");
 
       const geometry = new THREE.PlaneGeometry(2, 2);
@@ -49,7 +48,7 @@
         fragmentShader: `uniform sampler2D u_texture;
                          uniform float u_time;
                          void main() {
-                           vec2 uv = gl_FragCoord.xy / vec2( window.innerWidth, window.innerHeight );
+                           vec2 uv = gl_FragCoord.xy / vec2(${window.innerWidth.toFixed(1)}, ${window.innerHeight.toFixed(1)});
                            gl_FragColor = texture2D(u_texture, uv);
                          }`
       });
@@ -59,9 +58,7 @@
 
       const composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
-
-      const shaderPass = new ShaderPass(material);
-      composer.addPass(shaderPass);
+      composer.addPass(new ShaderPass(material));
 
       function animate(time) {
         material.uniforms.u_time.value = time * 0.001;
@@ -72,5 +69,4 @@
       animate();
     });
   </script>
-</body>
-</html>
+<

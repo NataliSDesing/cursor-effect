@@ -1,43 +1,52 @@
-// Получаем канвас
+console.log('Script работает!');
+
 const canvas = document.getElementById('webgl-canvas');
 
-// Сцена
+// Сцена и камера
 const scene = new THREE.Scene();
-
-// Камера
-const camera = new THREE.PerspectiveCamera(
-  75, 
-  window.innerWidth / window.innerHeight, 
-  0.1, 
-  1000
-);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 2;
 
+// Плоскость с текстурой (фон или белый прямоугольник)
+const geometry = new THREE.PlaneGeometry(2, 2);
+const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // можно заменить на текстуру позже
+const plane = new THREE.Mesh(geometry, material);
+scene.add(plane);
+
 // Рендерер
-const renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-  antialias: true,
-  alpha: true
-});
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// Ресайз под размер окна
+// Resize
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// Composer + эффект
+const composer = new THREE.EffectComposer(renderer);
+const renderPass = new THREE.RenderPass(scene, camera);
+composer.addPass(renderPass);
+
+// Подключаем наш кастомный ShaderPass
+const distortionPass = new THREE.ShaderPass(DistortionShader);
+composer.addPass(distortionPass);
+
+// Обновляем координаты мыши
+const mouse = new THREE.Vector2(0.5, 0.5);
+window.addEventListener('mousemove', (event) => {
+  mouse.x = event.clientX / window.innerWidth;
+  mouse.y = 1.0 - event.clientY / window.innerHeight;
 });
 
 // Анимация
-function animate() {
+function animate(time) {
   requestAnimationFrame(animate);
-
-  // Пока ничего не рендерим кроме сцены
-  renderer.render(scene, camera);
+  distortionPass.uniforms.uMouse.value = mouse;
+  distortionPass.uniforms.uTime.value = time * 0.001;
+  composer.render();
 }
 
 animate();
-

@@ -3,10 +3,8 @@ console.log('Shader загружен!');
 const DistortionShader = {
   uniforms: {
     tDiffuse: { value: null },
-    uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-    uTime: { value: 0.0 },
-    uStrength: { value: 0.2 },
-    uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0.5, 0.5) }
   },
   vertexShader: `
     varying vec2 vUv;
@@ -17,19 +15,14 @@ const DistortionShader = {
   `,
   fragmentShader: `
     uniform sampler2D tDiffuse;
-    uniform vec2 uMouse;
     uniform float uTime;
-    uniform float uStrength;
-    uniform vec2 uResolution;
+    uniform vec2 uMouse;
     varying vec2 vUv;
 
     void main() {
-      vec2 mouse = uMouse;
-      vec2 diff = vUv - mouse;
-      float dist = length(diff);
-      float effect = exp(-dist * 40.0) * uStrength;
-      vec2 uv = vUv + normalize(diff) * effect;
-      gl_FragColor = texture2D(tDiffuse, uv);
+      vec2 distortedUv = vUv + 0.02 * vec2(sin(uTime + vUv.y * 10.0), cos(uTime + vUv.x * 10.0));
+      vec4 color = texture2D(tDiffuse, distortedUv);
+      gl_FragColor = color;
     }
   `
 };

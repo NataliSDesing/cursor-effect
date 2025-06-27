@@ -10,10 +10,16 @@ camera.position.z = 2;
 // Плоскость с текстурой (фон или белый прямоугольник)
 const geometry = new THREE.PlaneGeometry(2, 2);
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
-const material = new THREE.MeshBasicMaterial({ map: texture });
-const plane = new THREE.Mesh(geometry, material);
-scene.add(plane);
+textureLoader.load(
+  'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+  (texture) => {
+    console.log('Картинка загружена!');
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    const plane = new THREE.Mesh(geometry, material);
+    scene.add(plane);
+  }
+);
 
 // Рендерер
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });

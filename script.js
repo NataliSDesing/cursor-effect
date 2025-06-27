@@ -9,7 +9,7 @@ camera.position.z = 2;
 
 // Плоскость с текстурой (фон или белый прямоугольник)
 const geometry = new THREE.PlaneGeometry(2, 2);
-onst textureLoader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader();
 const texture = textureLoader.load('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
 
 const material = new THREE.MeshBasicMaterial({ map: texture });

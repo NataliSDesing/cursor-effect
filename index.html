@@ -1,36 +1,33 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Custom Cursor Effect</title>
+  <title>WebGL Cursor Effect</title>
   <style>
     html, body {
       margin: 0;
-      padding: 0;
       overflow: hidden;
-      background: #0f0f0f;
+      height: 100%;
     }
     canvas {
       display: block;
     }
   </style>
-</head>
-<body>
 
-  <canvas id="webgl-canvas"></canvas>
-
+  <!-- Three.js -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
 
-<!-- ЭТО ДОБАВИТЬ: -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/EffectComposer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/RenderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/ShaderPass.js"></script>
+  <!-- Постобработка -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/EffectComposer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/RenderPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/ShaderPass.js"></script>
+</head>
 
-<!-- Твой код -->
-<script src="shader.js"></script>
-<script src="script.js"></script>
-  
+<body>
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Подключаем файлы -->
+  <script src="shader.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

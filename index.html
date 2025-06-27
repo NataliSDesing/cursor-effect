@@ -24,9 +24,6 @@
     import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/postprocessing/RenderPass.js';
     import { ShaderPass } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/postprocessing/ShaderPass.js';
 
-    console.log("Shader загружен!");
-    console.log("Script работает!");
-
     const canvas = document.getElementById('webgl-canvas');
     const renderer = new THREE.WebGLRenderer({ canvas });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -35,9 +32,7 @@
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
     const loader = new THREE.TextureLoader();
-    loader.load('image.jpg', (texture) => {
-      console.log("Картинка загружена!");
-
+    loader.load('image.png', (texture) => {
       const geometry = new THREE.PlaneGeometry(2, 2);
       const material = new THREE.ShaderMaterial({
         uniforms: {
@@ -45,12 +40,14 @@
           u_time: { value: 0 }
         },
         vertexShader: `void main() { gl_Position = vec4(position, 1.0); }`,
-        fragmentShader: `uniform sampler2D u_texture;
-                         uniform float u_time;
-                         void main() {
-                           vec2 uv = gl_FragCoord.xy / vec2(${window.innerWidth.toFixed(1)}, ${window.innerHeight.toFixed(1)});
-                           gl_FragColor = texture2D(u_texture, uv);
-                         }`
+        fragmentShader: `
+          uniform sampler2D u_texture;
+          uniform float u_time;
+          void main() {
+            vec2 uv = gl_FragCoord.xy / vec2(${window.innerWidth.toFixed(1)}, ${window.innerHeight.toFixed(1)});
+            gl_FragColor = texture2D(u_texture, uv);
+          }
+        `
       });
 
       const mesh = new THREE.Mesh(geometry, material);
@@ -58,7 +55,8 @@
 
       const composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
-      composer.addPass(new ShaderPass(material));
+      const shaderPass = new ShaderPass(material);
+      composer.addPass(shaderPass);
 
       function animate(time) {
         material.uniforms.u_time.value = time * 0.001;
@@ -69,4 +67,5 @@
       animate();
     });
   </script>
-<
+</body>
+</html>

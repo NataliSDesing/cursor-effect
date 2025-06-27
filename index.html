@@ -1,35 +1,38 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WebGL Cursor Effect</title>
-  <style>
-    html, body {
-      margin: 0;
-      overflow: hidden;
-      height: 100%;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor Effect</title>
 
-  <!-- Three.js -->
+  <!-- THREE.js core -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
 
-  <!-- Постобработка -->
+  <!-- POSTPROCESSING MODULES -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/EffectComposer.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/RenderPass.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/postprocessing/ShaderPass.js"></script>
 
+  <!-- SHADER -->
+  <script src="shader.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-
   <canvas id="webgl-canvas"></canvas>
 
-  <!-- Твои скрипты -->
-  <script src="shader.js"></script>
+  <!-- MAIN SCRIPT -->
   <script src="script.js"></script>
-
 </body>
 </html>

@@ -1,6 +1,6 @@
 # WebGL Fluid Cursor Effect
 
-This project now showcases a lightweight WebGL fluid simulation inspired by [Pavel Dobryakov's webgl-fluid-simulation](https://github.com/PavelDoGreat/WebGL-Fluid-Simulation). The simulation reacts to mouse movement, creating colorful swirling patterns. The script is standalone and can be embedded in website builders such as Tilda.
+This project now showcases a lightweight WebGL fluid simulation inspired by [Pavel Dobryakov's webgl-fluid-simulation](https://github.com/PavelDoGreat/WebGL-Fluid-Simulation).  The effect reproduces the liquid cursor interaction seen on sites like [advanced.team](https://advanced.team/) and [colbacolorbar.ru](https://colbacolorbar.ru/).  It reacts to mouse movement, creating colorful swirling patterns and can be embedded in website builders such as Tilda.
 
 ## Usage
 

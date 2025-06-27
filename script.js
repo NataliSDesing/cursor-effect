@@ -52,7 +52,7 @@ textureLoader.load(
       mouse.y = 1.0 - event.clientY / window.innerHeight;
     });
 
-    // Анимация — теперь запускается только после загрузки
+    // Анимация
     function animate(time) {
       requestAnimationFrame(animate);
       distortionPass.uniforms.uMouse.value = mouse;

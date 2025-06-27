@@ -1,3 +1,4 @@
+console.log("Shader загружен!");
 const DistortionShader = {
   uniforms: {
     tDiffuse: { value: null },
